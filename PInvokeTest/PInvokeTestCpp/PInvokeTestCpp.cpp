@@ -1,5 +1,4 @@
-﻿
-// PowerRegisterForEffectivePowerModeNotificationsに必要
+﻿// PowerRegisterForEffectivePowerModeNotificationsに必要
 #pragma comment(lib, "Powrprof.lib")
 
 #include "framework.h"

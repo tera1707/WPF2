@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PInvokeTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
-        <Button Content="ボタン" Margin="100" Click="Button_Click"/>
+        <StackPanel>
+            <Button Content="EFFECTIVE_POWER_MODE変化イベント登録" Margin="10" Click="Button_Click"/>
+            <Button Content="EFFECTIVE_POWER_MODE変化イベント登録解除" Margin="10" Click="Button_Click_1"/>
+        </StackPanel>
     </Grid>
 </Window>

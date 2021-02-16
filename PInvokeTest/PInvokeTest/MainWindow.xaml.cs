@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,20 @@ namespace PInvokeTest
     {
         public MainWindow() => InitializeComponent();
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) { }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            PInvokeTestModel.PowerRegisterForEffectivePowerModeNotifications((newMode) =>
+            {
+                Debug.WriteLine("モード：" + newMode);
+            });
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            // 登録解除の実験
+            PInvokeTestModel.PowerUnregisterFromEffectivePowerModeNotifications();
         }
     }
 }
