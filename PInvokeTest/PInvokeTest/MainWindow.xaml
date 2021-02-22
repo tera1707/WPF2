@@ -11,6 +11,7 @@
         <StackPanel>
             <Button Content="EFFECTIVE_POWER_MODE変化イベント登録" Margin="10" Click="Button_Click"/>
             <Button Content="EFFECTIVE_POWER_MODE変化イベント登録解除" Margin="10" Click="Button_Click_1"/>
+            <Button Content="EnumProcess実行" Margin="10" Click="Button_Click_2"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -6,6 +6,7 @@
 #include "resource.h"
 #include <powersetting.h>
 #include <string>
+#include <psapi.h>
 
 // グローバル変数:
 HINSTANCE hInst;
@@ -46,10 +47,11 @@ void* RegistrationHandle = NULL;
 // ダイアログプロシージャ
 BOOL CALLBACK MyDlgProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
 {
+    std::wstring buf;
+
     switch (msg) {
     case WM_INITDIALOG:
     {
-        std::wstring buf;
         HANDLE* Context = NULL;
         auto ret = PowerRegisterForEffectivePowerModeNotifications(EFFECTIVE_POWER_MODE_V1, (EFFECTIVE_POWER_MODE_CALLBACK*)OnEffectivePowerModeChanged, Context, &RegistrationHandle);
 
@@ -65,15 +67,48 @@ BOOL CALLBACK MyDlgProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
     }
     case WM_COMMAND:
         switch (LOWORD(wp)) {
-        case IDOK:
-            EndDialog(hDlg, IDOK);
-            return TRUE;
-        case IDCANCEL:
-            EndDialog(hDlg, IDCANCEL);
-            return TRUE;
-        case IDC_BUTTON1:
-            MessageBox(NULL, L"", L"", MB_OK);
-            break;
+            case IDOK:
+                EndDialog(hDlg, IDOK);
+                return TRUE;
+            case IDCANCEL:
+                EndDialog(hDlg, IDCANCEL);
+                return TRUE;
+            case IDC_BUTTON1:
+            {
+                // EnumProcesses
+                // https://docs.microsoft.com/ja-jp/windows/win32/api/psapi/nf-psapi-enumprocesses
+                DWORD procId[256] = { 0 };
+                DWORD cbNeeded = 0;
+                auto ret = EnumProcesses(procId, sizeof(procId) / sizeof(DWORD), &cbNeeded);
+                buf = L"- EnumProcesses() の戻り値：" + std::to_wstring(ret) + L"\r\n";
+                OutputDebugString(buf.c_str());
+
+                for (int i = 0; i < cbNeeded; i++)
+                {
+                    // 取得したIDのプロセス情報を開く(管理者で起動しないと成功しないっぽい)
+                    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procId[i]);
+                    auto err = GetLastError();
+
+                    if (NULL != hProcess)
+                    {
+                        // プロセス名を取得
+                        HMODULE hMod;
+                        DWORD cbNeeded;
+                        TCHAR procName[MAX_PATH] = TEXT("---");
+
+                        if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded))
+                        {
+                            GetModuleBaseName(hProcess, hMod, procName, sizeof(procName) / sizeof(TCHAR));
+                        }
+                        buf = L"- ProcId：" + std::to_wstring(i) + L" ID:" + std::to_wstring(procId[i]) + L" Name:" + procName + L"\r\n";
+                        OutputDebugString(buf.c_str());
+
+                        CloseHandle(hProcess);
+                    }
+                }
+                break;
+
+            }
         }
         return FALSE;
     }

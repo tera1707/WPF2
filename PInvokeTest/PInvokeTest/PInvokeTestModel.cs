@@ -6,6 +6,7 @@ namespace PInvokeTest
     public static class PInvokeTestModel
     {
         // (powersetting.hより)
+        // https://docs.microsoft.com/ja-jp/windows/win32/api/powersetting/ne-powersetting-effective_power_mode
         public enum EFFECTIVE_POWER_MODE
         {
             EffectivePowerModeBatterySaver,
@@ -49,13 +50,16 @@ namespace PInvokeTest
         public class NativeMethods
         {
             // (powersetting.hより)
+            // https://docs.microsoft.com/ja-jp/windows/win32/api/powersetting/nf-powersetting-effective_power_mode_callback
             public delegate void EFFECTIVE_POWER_MODE_CALLBACK(EFFECTIVE_POWER_MODE mode, IntPtr context);
 
             // (powersetting.hより)
+            // https://docs.microsoft.com/en-us/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications#parameters
             public const int EFFECTIVE_POWER_MODE_V1 = 0x00000001;
             public const int EFFECTIVE_POWER_MODE_V2 = 0x00000002;
 
             // パワースライダーの変更イベントの登録
+            // https://docs.microsoft.com/ja-jp/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
             [DllImport("powrprof.dll")]
             internal static extern uint PowerRegisterForEffectivePowerModeNotifications(
                 uint Version,
@@ -65,10 +69,31 @@ namespace PInvokeTest
             );
 
             // パワースライダーの変更イベントの解除
+            // https://docs.microsoft.com/ja-jp/windows/win32/api/powersetting/nf-powersetting-powerunregisterfromeffectivepowermodenotifications
             [DllImport("powrprof.dll")]
             internal static extern uint PowerUnregisterFromEffectivePowerModeNotifications(
                 IntPtr RegistrationHandle
             );
+
+            [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
+            public static extern uint PowerReadFriendlyName(
+               IntPtr RootPowerKey,
+               ref Guid SchemeGuid,
+               IntPtr SubGroupOfPowerSettingsGuid,
+               IntPtr PowerSettingGuid,
+               IntPtr Buffer,
+               ref uint BufferSize
+           );
+
+            [DllImport("powrprof.dll", EntryPoint = "PowerReadFriendlyName", CharSet = CharSet.Ansi)]
+            public static extern uint PowerReadFriendlyName2(
+               IntPtr RootPowerKey,
+               ref Guid SchemeGuid,
+               IntPtr SubGroupOfPowerSettingsGuid,
+               IntPtr PowerSettingGuid,
+               byte[] Buffer,
+               ref uint BufferSize
+           );
         }
     }
 }
