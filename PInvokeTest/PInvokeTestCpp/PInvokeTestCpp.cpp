@@ -9,6 +9,7 @@
 #include <psapi.h>
 
 #include "EnumProcessTest.h"
+#include "PowerEnumerateTest.h"
 
 // グローバル変数:
 HINSTANCE hInst;
@@ -28,7 +29,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int)0;
 }
-
 
 // Powrprof.libをリンカの入力に設定必要
 // PowerRegisterForEffectivePowerModeNotifications
@@ -77,15 +77,11 @@ BOOL CALLBACK MyDlgProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
                 return TRUE;
             case IDC_BUTTON1:
                 EnumProcessTest();
+                PowerEnumerateTest();
                 break;
             
             case IDC_BUTTON2:
-            {
-
-                
-
                 break;
-            }
 
         }
         return FALSE;

@@ -144,12 +144,14 @@
     <ClInclude Include="EnumProcessTest.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="PInvokeTestCpp.h" />
+    <ClInclude Include="PowerEnumerateTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnumProcessTest.cpp" />
     <ClCompile Include="PInvokeTestCpp.cpp" />
+    <ClCompile Include="PowerEnumerateTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PInvokeTestCpp.rc" />
