@@ -12,8 +12,8 @@
 #define IDI_SMALL                       108
 #define IDC_PINVOKETESTCPP              109
 #define IDR_MAINFRAME                   128
-#define IDD_DIALOG1                     129
 #define IDC_BUTTON1                     1000
+#define IDC_BUTTON2                     1001
 #define IDC_STATIC                      -1
 
 // Next default values for new objects

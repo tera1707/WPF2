@@ -141,12 +141,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EnumProcessTest.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="PInvokeTestCpp.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnumProcessTest.cpp" />
     <ClCompile Include="PInvokeTestCpp.cpp" />
   </ItemGroup>
   <ItemGroup>
