@@ -7,6 +7,7 @@
 #include <string>
 #include <locale.h>
 #include <rpc.h>
+#include "OutputLog.h"
 
 #pragma comment( lib, "Rpcrt4.lib" )
 
@@ -52,7 +53,7 @@ void PowerEnumerateTest()
         if (PowerEnumerate(NULL, NULL, NULL, ACCESS_SCHEME, index1++, buf, &size))
             break;
         memcpy_s(&sheme, sizeof(sheme), buf, sizeof(sheme));
-        OutputDebugString((GuidToString(&sheme) + L"\r\n").c_str());
+        OutputLogToCChokka((GuidToString(&sheme)).c_str());
 
         index2 = 0;
         while (1)
@@ -61,7 +62,7 @@ void PowerEnumerateTest()
             if (PowerEnumerate(NULL, &sheme, NULL, ACCESS_SUBGROUP, index2++, buf, &size))
                 break;
             memcpy_s(&subgr, sizeof(subgr), buf, sizeof(subgr));
-            OutputDebugString((L" " + GuidToString(&subgr) + L"\r\n").c_str());
+            OutputLogToCChokka((L" " + GuidToString(&subgr)).c_str());
 
             index3 = 0;
             while (1)
@@ -70,15 +71,15 @@ void PowerEnumerateTest()
                 if (PowerEnumerate(NULL, &sheme, &subgr, ACCESS_INDIVIDUAL_SETTING, index3++, buf, &size))
                     break;
                 memcpy_s(&indv, sizeof(indv), buf, sizeof(indv));
-                OutputDebugString((L"  " + GuidToString(&indv)).c_str());
 
                 // AC/DCÇÃê›íËílÇéÊìæ
                 DWORD ac, dc = 0;
                 PowerReadACValueIndex(NULL, &sheme, &subgr, &indv, &ac);
                 PowerReadDCValueIndex(NULL, &sheme, &subgr, &indv, &dc);
 
-                OutputDebugString((L"  ac:" + std::to_wstring(ac) + L" dc:" + std::to_wstring(dc) + L"\r\n").c_str());
+                OutputLogToCChokka((L"  " + GuidToString(&indv)) + L"  ac:" + std::to_wstring(ac) + L" dc:" + std::to_wstring(dc));
             }
         }
+        break;
     }
 }

@@ -13,6 +13,7 @@
             <Button Content="EFFECTIVE_POWER_MODE変化イベント登録解除" Margin="5" Click="Button_Click_1"/>
             <Button Content="EnumProcess実行" Margin="5" Click="Button_Click_2"/>
             <Button Content="PowerReadFriendlyName実行実行" Margin="5" Click="Button_Click_3"/>
+            <Button Content="PowerEnumerate" Margin="5" Click="Button_Click_4"/>
         </StackPanel>
     </Grid>
 </Window>

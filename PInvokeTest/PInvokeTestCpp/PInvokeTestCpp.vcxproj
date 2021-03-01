@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="EnumProcessTest.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="OutputLog.h" />
     <ClInclude Include="PInvokeTestCpp.h" />
     <ClInclude Include="PowerEnumerateTest.h" />
     <ClInclude Include="Resource.h" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnumProcessTest.cpp" />
+    <ClCompile Include="OutputLog.cpp" />
     <ClCompile Include="PInvokeTestCpp.cpp" />
     <ClCompile Include="PowerEnumerateTest.cpp" />
   </ItemGroup>

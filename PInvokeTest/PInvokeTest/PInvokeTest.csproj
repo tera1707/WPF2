@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="PInvokeTestModel.cs" />
     <Compile Include="PInvoke_EnumProcesses.cs" />
+    <Compile Include="PInvoke_PowerEnumerationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

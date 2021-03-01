@@ -87,5 +87,50 @@ namespace PInvokeTest
             ret = PInvokeTestModel.NativeMethods.PowerReadFriendlyName2(IntPtr.Zero, ref balancePlanGuid, IntPtr.Zero, IntPtr.Zero, nameString, ref buffSize);
             Debug.WriteLine(Encoding.Unicode.GetString(nameString));
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            var ret = Guid.Empty;
+            uint indvctr = 0;
+            uint subctr = 0;
+
+            while (true)
+            {
+                var subGuid = PInvoke_PowerEnumerationTest.PowerEnumerate(
+                    new Guid("381b4222-f694-41f0-9685-ff5bb260df2e"),
+                    Guid.Empty,
+                    PInvoke_PowerEnumerationTest.PowerDataAccessor.ACCESS_SUBGROUP,
+                    subctr++
+                    );
+                if (subGuid == Guid.Empty)
+                {
+                    break;
+                }
+
+                Debug.WriteLine(subGuid);
+
+                indvctr = 0;
+                while (true)
+                {
+                    var indvGuid = PInvoke_PowerEnumerationTest.PowerEnumerate(
+                        new Guid("381b4222-f694-41f0-9685-ff5bb260df2e"),
+                        subGuid,
+                        PInvoke_PowerEnumerationTest.PowerDataAccessor.ACCESS_INDIVIDUAL_SETTING,
+                        indvctr++
+                        );
+
+                    if (indvGuid == Guid.Empty)
+                    {
+                        break;
+                    }
+
+                    Debug.WriteLine(" " + indvGuid);
+
+                }
+            }
+
+
+            
+        }
     }
 }
